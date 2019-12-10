@@ -1,4 +1,4 @@
 include README.md
 include LICENSE.txt
-recursive-include myfitbit/static *
+recursive-include nostalgia_fitbit/static *
 recursive-include tests *

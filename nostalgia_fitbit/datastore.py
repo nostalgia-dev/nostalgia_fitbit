@@ -5,10 +5,12 @@ from datetime import date, time, timedelta
 
 log = logging.getLogger(__name__)
 
+
 class FitbitDatastore(object):
     '''
     Local data store of Fitbit json objects.
     '''
+
     def __init__(self, root):
         self.root = os.path.abspath(root)
 
@@ -28,23 +30,19 @@ class FitbitDatastore(object):
 
     def day_filenames(self, name):
         # TODO use profile['memberSince']
-        start = date(2017, 1, 1)
+        start = date(2019, 9, 18)
         days = 0
         while 1:
             day = start + timedelta(days=days)
             days += 1
-            if day == date.today():
+            if day > date.today():
                 return
 
             filename = self.filename(
                 name,
                 '{:04d}'.format(day.year),
-                '{}.{:04d}.{:02d}.{:02d}.json'.format(
-                    name,
-                    day.year,
-                    day.month,
-                    day.day
-            ))
+                '{}.{:04d}.{:02d}.{:02d}.json'.format(name, day.year, day.month, day.day),
+            )
             yield day, filename
 
     def get_proile(self):
@@ -102,7 +100,4 @@ class FitbitDatastore(object):
             data = self.read(filename)
             if not data:
                 continue
-            yield {
-                'date': d.isoformat(),
-                'minutes': compress(data),
-            }
+            yield {'date': d.isoformat(), 'minutes': compress(data)}

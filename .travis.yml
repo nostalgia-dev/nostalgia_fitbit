@@ -20,11 +20,11 @@ install:
 # command to run tests, e.g. python setup.py test
 script:
     - python setup.py sdist --format=zip
-    - pip install dist/myfitbit*.zip
+    - pip install dist/nostalgia_fitbit*.zip
     - py.test
 
 after_success:
     - pip install coveralls coverage
-    - PYTHONPATH=. coverage run --source=myfitbit -m pytest
+    - PYTHONPATH=. coverage run --source=nostalgia_fitbit -m pytest
     - coverage report
     - coveralls

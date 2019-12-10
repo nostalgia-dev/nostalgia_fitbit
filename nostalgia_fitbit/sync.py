@@ -22,9 +22,7 @@ class FitbitSync(object):
         self.sync_activities()
 
     def sync_profile(self):
-        self.datastore.write(
-            self.datastore.filename('profile.json'),
-            self.client.profile)
+        self.datastore.write(self.datastore.filename('profile.json'), self.client.profile)
 
     def sync_ranged_data(self, name, client_fn):
         '''
@@ -32,26 +30,23 @@ class FitbitSync(object):
         the FitBit API to the local data store, one month at a time
         '''
         fn = self.datastore.filename
-        month = 2015 * 12 # TODO use profile['memberSince']
+        month = 2015 * 12  # TODO use profile['memberSince']
         while 1:
             date_start = date(month // 12, month % 12 + 1, 1)
             month += 1
-            date_end =   date(month // 12, month % 12 + 1, 1)
+            date_end = date(month // 12, month % 12 + 1, 1)
 
             if date_start > date.today():
                 break
 
             partial = date_end > date.today()
-            partial_filename = fn(name, '{}.{:04d}.{:02d}.partial.json'.format(
+            partial_filename = fn(
                 name,
-                date_start.year,
-                date_start.month,
-            ))
-            filename = fn(name, '{}.{:04d}.{:02}.json'.format(
-                name,
-                date_start.year,
-                date_start.month,
-            ))
+                '{}.{:04d}.{:02d}.partial.json'.format(name, date_start.year, date_start.month),
+            )
+            filename = fn(
+                name, '{}.{:04d}.{:02}.json'.format(name, date_start.year, date_start.month)
+            )
 
             if os.path.isfile(partial_filename):
                 os.remove(partial_filename)
@@ -63,10 +58,7 @@ class FitbitSync(object):
                 continue
 
             log.info('Downloading: %s', filename)
-            data = client_fn(
-                date_start,
-                date_end - timedelta(days=1)
-            )
+            data = client_fn(date_start, date_end - timedelta(days=1))
             self.datastore.write(filename, data)
 
     def sync_sleep(self):
@@ -90,9 +82,7 @@ class FitbitSync(object):
             self.datastore.write(filename, data)
 
     def sync_heartrate_intraday(self):
-        self.sync_intraday_data(
-            'heartrate_intraday', self.client.get_heartrate_intraday)
+        self.sync_intraday_data('heartrate_intraday', self.client.get_heartrate_intraday)
 
     def sync_activities(self):
-        self.sync_intraday_data(
-            'activities', self.client.get_activities)
+        self.sync_intraday_data('activities', self.client.get_activities)
