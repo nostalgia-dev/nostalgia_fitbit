@@ -16,11 +16,11 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
-    conf_path = "~/.nostalgia/config/fitbit/config.json"
+    conf_path = "~/nostalgia_data/config/fitbit/config.json"
     if not just.exists(conf_path):
         webbrowser.open("https://dev.fitbit.com/apps/new")
         webbrowser.open(
-            "https://github.com/nostalgia-dev/nostalgia_fitbit/tree/master/docs/fitbit_app.png"
+            "https://raw.githubusercontent.com/nostalgia-dev/nostalgia_fitbit/master/docs/fitbit_app.png"
         )
         client_id = getpass.getpass("Client ID: ")
         client_secret = getpass.getpass("Client Secret: ")

@@ -54,7 +54,7 @@ class RedirectServer(object):
 
 
 class FitbitAuth(object):
-    ACCESS_TOKEN_FILE = just.make_path('~/.nostalgia/config/fitbit/.access_token')
+    ACCESS_TOKEN_FILE = just.make_path('~/nostalgia_data/config/fitbit/.access_token')
 
     def __init__(self, client_id, client_secret):
         self.client_id = client_id
@@ -125,7 +125,7 @@ class FitbitAuth(object):
                 return
         self.access_token = self.get_access_token()
         self.access_token['time'] = now
-        just.write(self.access_token, self.ACCESS_TOKEN_FILE)
+        just.write(self.access_token, self.ACCESS_TOKEN_FILE, unknown_type="json")
 
 
 class Fitbit(object):

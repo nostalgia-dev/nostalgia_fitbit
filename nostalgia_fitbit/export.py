@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 class FitbitExport(object):
     def __init__(self, client=None, user_id=None, profile=None):
-        self.root = just.make_path("~/.nostalgia/input/fitbit")
+        self.root = just.make_path("~/nostalgia_data/input/fitbit")
         self.client = client
         self.user_id = user_id
         self.profile = profile
