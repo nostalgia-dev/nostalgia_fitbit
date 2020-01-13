@@ -27,7 +27,7 @@ The app should look like this:
 
 The Callback URL must be exactly `http://localhost:8189/auth_code`
 
-<img src="docs/fitbit_app.png" width="271" height="606">
+<img src="docs/fitbit_app.png" width="300" height="918">
 
 Note that the fitbit API is rate limited to 150 calls/hour, and you can query only 1 day of heartrate data at a time. If you many days of data, you will be rate limited and see an HTTP 429 error. Simply re-run the command an hour later and it will resume downloading where it left off.
 
